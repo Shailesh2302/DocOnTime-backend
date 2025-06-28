@@ -15,7 +15,10 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: 'https://doc-on-time-frontend-delta.vercel.app',
+  credentials: true // Optional: If using cookies or auth headers
+}));
 
 // api endpoints
 app.use("/api/user", userRouter)
