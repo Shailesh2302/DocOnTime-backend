@@ -9,16 +9,18 @@ import adminRouter from "./routes/adminRoute.js"
 
 // app config
 const app = express()
-const port = process.env.PORT || 4000
+
 connectDB()
 connectCloudinary()
 
 // middlewares
 app.use(express.json())
+
+// ✅ Fix: Allow CORS from your frontend domain
 app.use(cors({
   origin: 'https://doc-on-time-frontend-delta.vercel.app',
-  credentials: true // Optional: If using cookies or auth headers
-}));
+  credentials: true
+}))
 
 // api endpoints
 app.use("/api/user", userRouter)
@@ -27,6 +29,7 @@ app.use("/api/doctor", doctorRouter)
 
 app.get("/", (req, res) => {
   res.send("API Working")
-});
+})
 
-app.listen(port, () => console.log(`Server started on PORT:${port}`))
+// ✅ DO NOT start the server — just export the app
+export default app
